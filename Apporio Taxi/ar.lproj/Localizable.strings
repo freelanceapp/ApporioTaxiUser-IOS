@@ -1,0 +1,1011 @@
+/*
+  Localizable.strings
+  Apporio Taxi
+
+  Created by Atul Jain on 22/01/19.
+  Copyright © 2019 Atul Jain. All rights reserved.
+*/
+
+
+"getting location...." = "الحصول على مكان ....";
+"Alert" = "محزر";
+"Phone Number" = "رقم الهاتف";
+"Password" = "كلمه السر";
+"Login" = "تسجيل الدخول";
+"or Sign in with" = "أو تسجيل الدخول مع";
+"Login as demo user" = "تسجيل الدخول كمستخدم تجريبي";
+"Forgot Password?" = "هل نسيت كلمة المرور؟";
+"New? Sign up here!" = "الجديد؟ سجل هنا!";
+"Select Country" = "حدد الدولة";
+"OK" = "حسنا";
+"CANCEL" = "إلغاء";
+"For Demo Testing " = "للاختبار التجريبي";
+"Make Sure you logged as Demo in Driver app as well." = "تأكد قمت بتسجيل كما عرض في التطبيق سائق أيضا.";
+"Ok" = "حسنا";
+"Cancel" = "إلغاء";
+"Register" = "تسجيل";
+"Your Name" = "اسمك";
+"Enter Email" = "أدخل البريد الإلكتروني";
+"Enter Phone" = "أدخل الهاتف";
+"Create Password" = "إنشاء كلمة المرور";
+"Enter Referral Code(if any)" = "أدخل رمز الإحالة (إن وجدت)";
+"Gender" = "جنس";
+"Male" = "الذكر";
+"Female" = "إناثا";
+"Continue" = "استمر";
+"Please Enter Name" = "الرجاء إدخال اسم";
+"Please Enter Mobile Number First" = "الرجاء إدخال رقم الجوال أولا";
+"Password length should not be less then 6" = "لا ينبغي أن يكون طول كلمة أقل ثم 6";
+"Please fill email properly." = "الرجاء تعبئة البريد الإلكتروني بشكل صحيح.";
+"Attach Your Phone number if you want to remember your account easilty." = "إرفاق رقم الهاتف إذا كنت ترغب في تذكر easilty حسابك.";
+"Verify your Phone Number" = "اكد على رقم هاتفك او جوالك";
+"Please enter the One Time Password(OTP) recieved on your number!" = "الرجاء إدخال كلمة المرور مرة واحدة (OTP) تلقوا على رقم هاتفك!";
+"Enter OTP" = "أدخل OTP";
+"Re-enter Phone" = "إعادة إدخال الهاتف";
+"GET OTP" = "الحصول على OTP";
+"Select Country" = "حدد الدولة";
+"phone number should exist between " = "يجب أن تكون موجودة بين رقم الهاتف";
+" to " = " إلى";
+" digits." = " أرقام.";
+"Please Enter Valid OTP" = "الرجاء إدخال صالح OTP";
+"Change Password" = "غير كلمة السر";
+"New Password" = "كلمة السر الجديدة";
+"Confirm Password" = "تأكيد كلمة المرور";
+"Done" = "فعله";
+"Password Shoud Not Be Less Then 6" = "كلمة المرور عدم ربط لا تقل ثم 6";
+"Password Does Not Match" = "كلمة السر غير متطابقة";
+"Old Password" = "كلمة المرور القديمة";
+"DONE" = "فعله";
+"Your Trips" = "رحلات الخاصة بك";
+"Favourite Drivers" = "برامج تشغيل المفضلة";
+"Manage Your Cards" = "إدارة البطاقات الخاصة بك";
+"Rate Card" = "سعر البطاقة";
+"Wallet" = "محفظة نقود";
+"Refer & Earn" = "الرجوع وكسب";
+"Promotions" = "الترقيات";
+"Language" = "لغة";
+"Report Issue" = "قضية تقرير";
+"Customer Support" = "دعم العملاء";
+"Terms and Conditions" = "الأحكام والشروط";
+"About us" = "معلومات عنا";
+"Log Out" = "الخروج";
+"Please have some paitence, we are finding ride for you" = "يرجى أن يكون بعض paitence، نجد ركوب لك";
+"Finding Your Ride......" = "العثور رحلتك ......";
+"Pickup From" = "تلتقط من";
+"Drop Point" = "إسقاط نقطة";
+"Getting Location.." = "الحصول على الموقع ..";
+"Set your drop point" = "تعيين نقطة إسقاط الخاص";
+"RIDE LATER" = "ركوب احقا";
+"RIDE NOW" = "اركب الآن";
+"Sorry , we don't serve this location yet." = "عذرا، لا تخدم هذا الموقع حتى الآن.";
+"Go to active ride" = "الذهاب إلى ركوب نشط";
+"Add stops" = "إضافة توقف";
+" stop" = " توقف";
+" stops" = " توقف";
+"Please enter drop location first" = "الرجاء إدخال قطرة موقع أولا";
+"Please Enter drop Location" = "الرجاء إدخال قطرة الموقع";
+"Please select a package" = "الرجاء تحديد مجموعة";
+"Report Issue Regarding TaxiUser App" = "تقرير المسألة المتعلقة TaxiUser التطبيقات";
+"Sending e-mail in-app is not so bad!" = "إرسال رسائل البريد الإلكتروني في التطبيق ليس سيئا للغاية!";
+"Could Not Send Email" = "تعذر إرسال البريد الإلكتروني";
+"Your device could not send e-mail. Please check e-mail configuration and try again." = "جهازك لا يمكن إرسال البريد الإلكتروني. يرجى التحقق من إعدادات البريد الإلكتروني وحاول مرة أخرى.";
+"Your address" = "عنوانك";
+"Enter Name" = "أدخل الاسم";
+"Save" = "حفظ";
+"Please Enter Name For This Location" = "الرجاء إدخال اسم لهذا الموقع";
+"LOCATION" = "موقعك";
+"Favourites" = "المفضلة";
+"Search Location ....." = "بحث الموقع .....";
+"No Favorite Locations!" = "لا المواقع المفضلة لديك!";
+"Fare Policy" = "سياسة أجرة";
+"Fare will be adjusted with based on our pricing policy and other necessary requirements." = "وسيتم تعديل الأسعار مع استنادا إلى سياسة التسعير لدينا والمتطلبات الضرورية الأخرى.";
+"Note : Fare may change" = "ملاحظة: قد تتغير أجرة";
+"Confirm" = "تؤكد";
+"Est. Fare" = "Est. أجرة";
+"Please select payment method first." = "يرجى تحديد طريقة السداد أولا.";
+"Cancel Ride" = "إلغاء جولة";
+"SOS" = "نجدة";
+"Call" = "مكالمة";
+"Chat" = "دردشة";
+"Please select cancel reason first" = "يرجى تحديد سبب إلغاء أولا";
+"OTP : " = "مكتب المدعي العام:";
+"Payment" = "دفع";
+"Share" = "شارك";
+"For cancelling , you will be charged " = "لإلغاء، وستحمل لك";
+"Select Payment Option" = "حدد خيار الدفع";
+"Add this driver to your favourite" = "إضافة برنامج التشغيل هذا إلى المفضلة لديك";
+"Payment Pending" = "انتظار الدفع";
+"comment if any" = "التعليق إن وجدت";
+"Submit" = "خضع";
+"Complete" = "اكتمال";
+"Name" = "اسم";
+"User Email" = "البريد الالكتروني للمستخدم";
+"This email can be used in future for getting your proper order tracking and invocing of your order" = "هذا البريد الإلكتروني يمكن أن تستخدم في المستقبل من أجل الحصول على الخاص بك السليم تتبع النظام وinvocing طلبك";
+"YOUR ACCOUNT" = "الحساب الخاص بك";
+"DONE" = "فعله";
+"Select Option" = "حدد الخيار";
+"Camera" = "الة تصوير";
+"Gallery" = "صالة عرض";
+"Please enter email first." = "يرجى إدخال البريد الإلكتروني أولا.";
+"Your Trips" = "رحلات الخاصة بك";
+"Active" = "نشيط";
+"Past" = "الماضي";
+"Trip Details" = "تفاصيل رحلة";
+"About Us" = "معلومات عنا";
+"Version Name : " = "اسم الإصدار:";
+"Terms & Conditions" = "البنود و الظروف";
+"Send" = "إرسال";
+"DO YOU HAVE A QUERY" = "هل لديك استفسار";
+"Please let us know about your query,our support team will get back to you" = "واسمحوا لنا أن نعرف عن الاستعلام الخاص بك، سيقوم فريق الدعم لدينا نعود اليكم";
+"Name " = "اسم";
+"Email" = "البريد الإلكتروني";
+"Phone" = "هاتف";
+"your Query" = "طلبك";
+"Please Check Your Name" = "يرجى التحقق من اسمك";
+"Please Check Your Email" = "من فضلك تفقد بريدك الالكتروني";
+" Wrong Email format " = " تنسيق البريد الإلكتروني غير صحيح";
+" Email id must not contain space " = " يجب أن لا يحتوي البريد الإلكتروني معرف الفضاء";
+"Please Check Your Query is blank" = "يرجى التحقق من الاستعلام الخاص بك فارغة";
+"Manage Your Cards" = "إدارة البطاقات الخاصة بك";
+"Add New" = "اضف جديد";
+"Add Card" = "إضافة بطاقة";
+"ENTER CARD NUMBER" = "إدخال رقم بطاقة";
+"NEXT" = "التالى";
+"MM/YYYY" = "MM / YYYY";
+"CVV" = "CVV";
+"Please enter the required details" = "الرجاء إدخال البيانات المطلوبة";
+"Filter Transactions" = "تصفية المعاملات";
+"Wallet" = "محفظة نقود";
+"Available Balance" = "الرصيد المتوفر";
+"Add Money" = "إضافة المال";
+"Recent Transactions" = "التحويلات الاخيرة";
+"Filter" = "منقي";
+"Select Payment method" = "اختار طريقة الدفع";
+"Add money to wallet" = "إضافة المال إلى محفظة";
+"It's quick,safe and secure" = "انها سريعة وآمنة ومأمونة";
+"Add Money" = "إضافة المال";
+"Please enter Amount First" = "الرجاء إدخال المبلغ أولا";
+"Refer & Earn" = "الرجوع وكسب";
+"Refer Code and Earn More" = "الرجوع المدونة واكسب أكثر";
+"Start Date" = "تاريخ البدء";
+"End Date" = "تاريخ الانتهاء";
+"Share your code" = "مشاركة التعليمات البرمجية";
+"Promotions" = "الترقيات";
+"APPLY COUPON" = "تنطبق القسيمة";
+"APPLY" = "تطبيق";
+"INVALID CODE!!" = "الرمز غير صحيح!!";
+"Please enter a valid coupon and try again." = "الرجاء إدخال القسيمة صالحة وحاول مرة أخرى.";
+"You dont seem to have any valid coupons" = "أنت لا يبدو أن لديها أي كوبونات صالحة";
+"Select Date & Time" = "حدد التاريخ والوقت";
+"Select payment method" = "اختار طريقة الدفع";
+"Manage Favourite Driver" = "إدارة سائق المفضلة";
+"Mail Invoice" = "البريد الفاتورة";
+"Please enter you mail address on which you want to send invoice." = "يرجى إدخال عنوان أنت الذي تريد أن ترسل فاتورة عبر البريد الإلكتروني.";
+"Enter Email" = "أدخل البريد الإلكتروني";
+"Please keep stops to 3 minutes or less" = "يرجى الاحتفاظ توقف لمدة 3 دقائق أو أقل";
+"As for your driver's time.please limit each stop to 3 minuutes or less,otherwise your fare may change." = "أما بالنسبة الحد من time.Please القيادة الخاصة بك وقف كل 3 minuutes أو أقل، وإلا قد تتغير أجرة.";
+"Are you sure you want to make changes" = "هل أنت متأكد أنك تريد إجراء تغييرات";
+"Book OutStation Ride" = "كتاب المحطة الخارجية ركوب";
+"One Way" = "اتجاه واحد";
+"Round Trip" = "جولة";
+"Keep car till return" = "إبقاء السيارة حتى عودة";
+"Get dropped off" = "الحصول على تراجع";
+"Leave on" = "يغادر يوم";
+"Return by" = "العودة من قبل";
+"Select vehicle type" = "حدد نوع السيارة";
+"Select" = "تحديد";
+"please select leave on date first" = "يرجى تحديد إجازة في التاريخ لأول مرة";
+"please select return date" = "يرجى تحديد تاريخ العودة";
+"Price Card" = "بطاقة السعر";
+"Select Area" = "اختر منطقة";
+"Select City : " = "اختر مدينة :";
+"USE IN CASE OF EMERGENCY" = "استخدام في حالات الطوارئ";
+"Call Police Control Room" = "استدعاء غرفة التحكم الشرطة";
+"Call Your Emergency Contact" = "مكالمتك الاتصال في حالات الطوارئ";
+"CLOSE" = "أغلق";
+"Select Emergency Contact" = "حدد الاتصال في حالات الطوارئ";
+"Log Out" = "الخروج";
+"Are You Sure to Log Out ?" = "هل أنت متأكد من تسجيل الخروج؟";
+"mobile" = "التليفون المحمول";
+"Change Password" = "غير كلمة السر";
+"Edit" = "تصحيح";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

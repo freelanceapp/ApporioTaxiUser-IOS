@@ -91,7 +91,7 @@ struct AppConstants{
     static var enteruserphonenumber: String = ""
     static var comefromforgetscreen: String = ""
     static var checkphonenumber: Int = 0
-    static var publickey = "H7S25CkDp8tBvoTN4LrZAQlsMj6xGi"
+    static var publickey = "s31kPjpFMGOArnZ0q47R8y6D5N9uSv"
     static var SelectDate :String = ""
     static var SelectTime :String = ""
     static var ReturnSelectDate :String = ""
@@ -100,7 +100,7 @@ struct AppConstants{
     static var LeaveSelectDate :String = ""
      static var LeaveSelectDateshowformat :String = ""
     static var LeaveSelectTime :String = ""
-    static var secretkey = "kSKPNTEjpn7s3ZODt6q8xVQrWmv49l"
+    static var secretkey = "EqC2yT8RfQpXwFZ1MlNuL30OGZ4PoW"
     static var languagecode = "en"
      static var addmoney = 0
     static var cardselect = 0
@@ -163,8 +163,8 @@ struct AppConstants{
     
     
     struct APIURL{
-        static let BASE_URL:String = "http://taxi.apporio.in/Development/public/"
-        static let IMAGE_URL = "http://taxi.apporio.in/Development/public/"
+        static let BASE_URL:String = "http://taxi.apporio.in/Production/public/"
+        static let IMAGE_URL = "http://taxi.apporio.in/Production/public/"
        
     }
     

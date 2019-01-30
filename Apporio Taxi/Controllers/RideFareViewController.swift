@@ -437,6 +437,7 @@ class RideFareViewController: BaseViewController,RatingViewDelegate {
             
             favouritedriverview.isHidden = false
             favouritebtnviewheight.constant = 60.0
+           // secondviwheight = secondviwheight! + 60.0
             
             
         }else{
@@ -453,7 +454,8 @@ class RideFareViewController: BaseViewController,RatingViewDelegate {
             
             bottomview.isHidden = false
             bottomviewheight.constant = 270.0
-             secondviwheight = secondviwheight! + 300.0
+           
+            secondviwheight = secondviwheight! + 300.0
             driverimageview.makeViewCircular()
             
             
@@ -494,7 +496,7 @@ class RideFareViewController: BaseViewController,RatingViewDelegate {
             
             paymentpendingview.isHidden = false
             paymentpendingviewheight.constant = 50.0
-            
+           //  secondviwheight = secondviwheight! + 50.0
             
             
             completebtnview.backgroundColor = PListUtility.getColorFromHex(hexString: "#" + (userrecieptdata.data?.holderBottomButton?.bottomButtonColor)!)
@@ -518,18 +520,14 @@ class RideFareViewController: BaseViewController,RatingViewDelegate {
              paymentpendingview.isHidden = true
             
         }
-        
-        
-        
+       
         
         
         tablecount = (userrecieptdata.data?.holderRideInfo?.staticValues?.count)!
         
         billdetailstableview.reloadData()
         
-        
-        
-        
+    
         
     }
     

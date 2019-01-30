@@ -1,38 +1,36 @@
 //
-//  ServiceTypes.swift
+//  Categories.swift
 //
-//  Created by Atul Jain on 11/12/18
+//  Created by Gyanender on 24/01/19
 //  Copyright (c) . All rights reserved.
 //
 
 import Foundation
 import ObjectMapper
 
-public struct CarsTimeServiceTypes: Mappable {
+public struct CarsTimeCategories: Mappable {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.
   private struct SerializationKeys {
-    static let vehicles = "vehicles"
-    static let serviceStatus = "serviceStatus"
+    static let status = "status"
+    static let name = "name"
     static let updatedAt = "updated_at"
     static let id = "id"
+    static let countryAreaId = "country_area_id"
+    static let vehicle = "vehicle"
     static let createdAt = "created_at"
-    static let serviceName = "serviceName"
-    static let package = "package"
     static let merchantId = "merchant_id"
-     static let categories = "categories"
   }
 
   // MARK: Properties
-  public var vehicles: [CarsTimeVehicles]?
-  public var serviceStatus: String?
+  public var status: String?
+  public var name: String?
   public var updatedAt: String?
   public var id: Int?
+  public var countryAreaId: String?
+  public var vehicle: [CarsTimeVehicle]?
   public var createdAt: String?
-  public var serviceName: String?
-  public var package: [CarsTimePackage]?
   public var merchantId: String?
-    public var categories: [CarsTimeCategories]?
 
   // MARK: ObjectMapper Initializers
   /// Map a JSON object to this class using ObjectMapper.
@@ -46,15 +44,14 @@ public struct CarsTimeServiceTypes: Mappable {
   ///
   /// - parameter map: A mapping from ObjectMapper.
   public mutating func mapping(map: Map) {
-    vehicles <- map[SerializationKeys.vehicles]
-    serviceStatus <- map[SerializationKeys.serviceStatus]
+    status <- map[SerializationKeys.status]
+    name <- map[SerializationKeys.name]
     updatedAt <- map[SerializationKeys.updatedAt]
     id <- map[SerializationKeys.id]
+    countryAreaId <- map[SerializationKeys.countryAreaId]
+    vehicle <- map[SerializationKeys.vehicle]
     createdAt <- map[SerializationKeys.createdAt]
-    serviceName <- map[SerializationKeys.serviceName]
-    package <- map[SerializationKeys.package]
     merchantId <- map[SerializationKeys.merchantId]
-     categories <- map[SerializationKeys.categories]
   }
 
   /// Generates description of the object in the form of a NSDictionary.
@@ -62,15 +59,14 @@ public struct CarsTimeServiceTypes: Mappable {
   /// - returns: A Key value pair containing all valid values in the object.
   public func dictionaryRepresentation() -> [String: Any] {
     var dictionary: [String: Any] = [:]
-    if let value = vehicles { dictionary[SerializationKeys.vehicles] = value.map { $0.dictionaryRepresentation() } }
-    if let value = serviceStatus { dictionary[SerializationKeys.serviceStatus] = value }
+    if let value = status { dictionary[SerializationKeys.status] = value }
+    if let value = name { dictionary[SerializationKeys.name] = value }
     if let value = updatedAt { dictionary[SerializationKeys.updatedAt] = value }
     if let value = id { dictionary[SerializationKeys.id] = value }
+    if let value = countryAreaId { dictionary[SerializationKeys.countryAreaId] = value }
+    if let value = vehicle { dictionary[SerializationKeys.vehicle] = value.map { $0.dictionaryRepresentation() } }
     if let value = createdAt { dictionary[SerializationKeys.createdAt] = value }
-    if let value = serviceName { dictionary[SerializationKeys.serviceName] = value }
-    if let value = package { dictionary[SerializationKeys.package] = value.map { $0.dictionaryRepresentation() } }
     if let value = merchantId { dictionary[SerializationKeys.merchantId] = value }
-    if let value = categories { dictionary[SerializationKeys.categories] = value.map { $0.dictionaryRepresentation() } }
     return dictionary
   }
 

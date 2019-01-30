@@ -16,6 +16,7 @@ public struct CarsTimeModel: Mappable {
     static let message = "message"
     static let result = "result"
     static let currency = "currency"
+    static let homescreen = "home_screen"
   }
 
   // MARK: Properties
@@ -23,6 +24,7 @@ public struct CarsTimeModel: Mappable {
   public var message: String?
   public var result: String?
   public var currency: String?
+    public var homescreen: String?
 
   // MARK: ObjectMapper Initializers
   /// Map a JSON object to this class using ObjectMapper.
@@ -40,6 +42,7 @@ public struct CarsTimeModel: Mappable {
     message <- map[SerializationKeys.message]
     result <- map[SerializationKeys.result]
     currency <- map[SerializationKeys.currency]
+    homescreen <- map[SerializationKeys.homescreen]
   }
 
   /// Generates description of the object in the form of a NSDictionary.
@@ -51,6 +54,7 @@ public struct CarsTimeModel: Mappable {
     if let value = message { dictionary[SerializationKeys.message] = value }
     if let value = result { dictionary[SerializationKeys.result] = value }
     if let value = currency { dictionary[SerializationKeys.currency] = value }
+    if let value = homescreen { dictionary[SerializationKeys.homescreen] = value }
     return dictionary
   }
 

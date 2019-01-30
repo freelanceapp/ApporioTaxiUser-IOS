@@ -13,6 +13,7 @@ public struct PaymentOptionModel: Mappable {
   // MARK: Declaration for string constants to be used to decode and also serialize.
   private struct SerializationKeys {
     static let creditButton = "credit_button"
+     static let walletButton = "wallet_button"
     static let data = "data"
     static let message = "message"
     static let result = "result"
@@ -20,6 +21,7 @@ public struct PaymentOptionModel: Mappable {
 
   // MARK: Properties
   public var creditButton: Bool? = false
+     public var walletButton: Bool? = false
   public var data: [PaymentOptionData]?
   public var message: String?
   public var result: String?
@@ -36,6 +38,7 @@ public struct PaymentOptionModel: Mappable {
   ///
   /// - parameter map: A mapping from ObjectMapper.
   public mutating func mapping(map: Map) {
+    walletButton <- map[SerializationKeys.walletButton]
     creditButton <- map[SerializationKeys.creditButton]
     data <- map[SerializationKeys.data]
     message <- map[SerializationKeys.message]
@@ -48,6 +51,7 @@ public struct PaymentOptionModel: Mappable {
   public func dictionaryRepresentation() -> [String: Any] {
     var dictionary: [String: Any] = [:]
     dictionary[SerializationKeys.creditButton] = creditButton
+     dictionary[SerializationKeys.walletButton] = walletButton
     if let value = data { dictionary[SerializationKeys.data] = value.map { $0.dictionaryRepresentation() } }
     if let value = message { dictionary[SerializationKeys.message] = value }
     if let value = result { dictionary[SerializationKeys.result] = value }

@@ -12,6 +12,19 @@ import ObjectMapper
 class SelectPaymentMethodViewController: BaseViewController {
     
     
+    @IBOutlet weak var addwalletmoneybtn: UIButton!
+    
+    @IBOutlet weak var addpaymentmethodbtn: UIButton!
+    
+    @IBOutlet weak var bottomview: UIView!
+    
+    @IBOutlet weak var innerwalletmoneyview: UIView!
+    @IBOutlet weak var addwalletmoneyview: UIView!
+    
+    @IBOutlet weak var addpaymentmethodview: UIView!
+    
+    @IBOutlet weak var inneraddpaymentview: UIView!
+    
     @IBOutlet weak var topselectpaymentmethodtextlbl: UILabel!
     
     @IBOutlet weak var paymentoptiontableview: UITableView!
@@ -25,12 +38,26 @@ class SelectPaymentMethodViewController: BaseViewController {
         
         topselectpaymentmethodtextlbl.text = "Select payment method".localized
         
+        innerwalletmoneyview.edgeWithShadow(edge: 16)
+        
+        inneraddpaymentview.edgeWithShadow(edge: 16)
         
         
+        
+        
+        
+      
+        
+        
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         let dic1 = ["checkout_id":AppConstants.checkoutid,
                     
-            
-            ] as [String : AnyObject]
+                    
+                    ] as [String : AnyObject]
         
         
         
@@ -42,16 +69,22 @@ class SelectPaymentMethodViewController: BaseViewController {
         ServiceManager.sharedInstance.delegate = self
         
         ServiceManager.sharedInstance.requestPostWithParameter(apiRequestUrl, andRequestDictionary: dic1, requestHeader: AppConstants.dicauthorization, returningClass: PaymentOptionModel.self)
-        
-        
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    @IBAction func addwalletmoneybtnclick(_ sender: Any) {
+        
+        self.presentVC("AddMoneytoWalletViewController")
+    }
+    @IBAction func addpaymentmethodbtnclick(_ sender: Any) {
+        self.presentVC("AddNewCardViewController")
+    }
+    
     
     @IBAction func backbtnclick(_ sender: Any) {
         
@@ -117,7 +150,7 @@ extension SelectPaymentMethodViewController: UITableViewDelegate,UITableViewData
         
         showLoaderWithoutBackground()
         
-        
+    
         
         let apiRequestUrl = AppConstants.APIURL.BASE_URL + AppConstants.ApiEndPoints.USERPAYMENT
         ServiceManager.sharedInstance.delegate = self
@@ -149,6 +182,26 @@ extension SelectPaymentMethodViewController: ApiResponseReceiver{
                 tablecount = (self.paymentoptiondata.data?.count)!
                 
                 paymentoptiontableview.reloadData()
+                
+                
+                if self.paymentoptiondata.creditButton!{
+                    self.addpaymentmethodview.isHidden = false
+                    self.inneraddpaymentview.isHidden = false
+                }else{
+                     self.addpaymentmethodview.isHidden = true
+                     self.inneraddpaymentview.isHidden = true
+                }
+                
+                if self.paymentoptiondata.walletButton!{
+                    self.addwalletmoneyview.isHidden = false
+                    self.innerwalletmoneyview.isHidden = false
+                    
+                }else{
+                    self.addwalletmoneyview.isHidden = true
+                     self.innerwalletmoneyview.isHidden = true
+                }
+                
+                
                 
               
                 

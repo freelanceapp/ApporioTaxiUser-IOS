@@ -18,6 +18,9 @@
 		4D0AD0F021F886890073CA69 /* ChangeAddressDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD0E721F886870073CA69 /* ChangeAddressDriver.swift */; };
 		4D0AD0F121F886890073CA69 /* ChangeAddressPolydata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD0E821F886880073CA69 /* ChangeAddressPolydata.swift */; };
 		4D0AD0F221F886890073CA69 /* ChangeAddressLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD0E921F886890073CA69 /* ChangeAddressLocation.swift */; };
+		4D0AD10C21FAE9270073CA69 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD10B21FAE9270073CA69 /* MapViewController.swift */; };
+		4D0AD10F21FAE99A0073CA69 /* CarsTimeCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD10D21FAE99A0073CA69 /* CarsTimeCategories.swift */; };
+		4D0AD11021FAE99A0073CA69 /* CarsTimeVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AD10E21FAE99A0073CA69 /* CarsTimeVehicle.swift */; };
 		4D1B157D21BF7FD200573257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B157C21BF7FD200573257 /* AppDelegate.swift */; };
 		4D1B157F21BF7FD200573257 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B157E21BF7FD200573257 /* ViewController.swift */; };
 		4D1B158221BF7FD200573257 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B158021BF7FD200573257 /* Main.storyboard */; };
@@ -64,7 +67,6 @@
 		4D38175F21BF883F00AE6924 /* ApiResponseReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D38175C21BF883E00AE6924 /* ApiResponseReceiver.swift */; };
 		4D38176021BF883F00AE6924 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D38175D21BF883E00AE6924 /* ServiceManager.swift */; };
 		4D38176121BF883F00AE6924 /* ApiRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D38175E21BF883F00AE6924 /* ApiRequestProtocol.swift */; };
-		4D38176321BF8EA200AE6924 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D38176221BF8EA200AE6924 /* MapViewController.swift */; };
 		4D3FD72B21DF80BD00236A1D /* SENDEMAILViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3FD72A21DF80BC00236A1D /* SENDEMAILViewController.swift */; };
 		4D3FD72D21DF8B1000236A1D /* SendMailIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3FD72C21DF8B1000236A1D /* SendMailIModel.swift */; };
 		4D3FD72F21E08D5300236A1D /* AddStopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3FD72E21E08D5300236A1D /* AddStopsViewController.swift */; };
@@ -275,6 +277,9 @@
 		4D0AD0E721F886870073CA69 /* ChangeAddressDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeAddressDriver.swift; sourceTree = "<group>"; };
 		4D0AD0E821F886880073CA69 /* ChangeAddressPolydata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeAddressPolydata.swift; sourceTree = "<group>"; };
 		4D0AD0E921F886890073CA69 /* ChangeAddressLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeAddressLocation.swift; sourceTree = "<group>"; };
+		4D0AD10B21FAE9270073CA69 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4D0AD10D21FAE99A0073CA69 /* CarsTimeCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarsTimeCategories.swift; sourceTree = "<group>"; };
+		4D0AD10E21FAE99A0073CA69 /* CarsTimeVehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarsTimeVehicle.swift; sourceTree = "<group>"; };
 		4D1B157921BF7FD200573257 /* Apporio Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Apporio Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1B157C21BF7FD200573257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D1B157E21BF7FD200573257 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -330,7 +335,6 @@
 		4D38175C21BF883E00AE6924 /* ApiResponseReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseReceiver.swift; sourceTree = "<group>"; };
 		4D38175D21BF883E00AE6924 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		4D38175E21BF883F00AE6924 /* ApiRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiRequestProtocol.swift; sourceTree = "<group>"; };
-		4D38176221BF8EA200AE6924 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4D38176621BF96C200AE6924 /* Apporio Taxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Apporio Taxi.entitlements"; sourceTree = "<group>"; };
 		4D3FD72A21DF80BC00236A1D /* SENDEMAILViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SENDEMAILViewController.swift; sourceTree = "<group>"; };
 		4D3FD72C21DF8B1000236A1D /* SendMailIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMailIModel.swift; sourceTree = "<group>"; };
@@ -778,6 +782,8 @@
 				4DAFF1D621CE4F1D002CF8EA /* CarsTimePackage.swift */,
 				4DAFF1D721CE4F1D002CF8EA /* CarsTimeServiceTypes.swift */,
 				4DAFF1D821CE4F1E002CF8EA /* CarsTimeVehicles.swift */,
+				4D0AD10D21FAE99A0073CA69 /* CarsTimeCategories.swift */,
+				4D0AD10E21FAE99A0073CA69 /* CarsTimeVehicle.swift */,
 			);
 			path = "Model Classes";
 			sourceTree = "<group>";
@@ -790,9 +796,9 @@
 				4D1C8B2421D88816004DBAEB /* SignUpViewController.swift */,
 				4D1C8B2621D88833004DBAEB /* SignUpwithgoogleViewController.swift */,
 				4D1C8B2821D8884E004DBAEB /* VerifyPhoneViewController.swift */,
+				4D0AD10B21FAE9270073CA69 /* MapViewController.swift */,
 				4D1C8B2A21D88866004DBAEB /* ForgotPasswordViewController.swift */,
 				4D1C8B2C21D8887B004DBAEB /* ChangePasswordViewController.swift */,
-				4D38176221BF8EA200AE6924 /* MapViewController.swift */,
 				4DACF84121C78678006864EF /* FavoriteLocationAddVC.swift */,
 				4DACF84221C78679006864EF /* LocationSearchVC.swift */,
 				4DACF84921C7DD21006864EF /* RideNowViewController.swift */,
@@ -1200,6 +1206,7 @@
 				4D55B44821D4D08B00DE6BB5 /* AboutUsData.swift in Sources */,
 				4D0AD0EC21F886890073CA69 /* ChangeAddressData.swift in Sources */,
 				4D55B42721D37F8500DE6BB5 /* RideDetailsHolderPickdropLocation.swift in Sources */,
+				4D0AD11021FAE99A0073CA69 /* CarsTimeVehicle.swift in Sources */,
 				4D1C8B2521D88816004DBAEB /* SignUpViewController.swift in Sources */,
 				4D787F4621DE226500D8DC21 /* AddDriverFavouriteData.swift in Sources */,
 				4D787F6021DE6FD800D8DC21 /* SendChatMessageChat.swift in Sources */,
@@ -1246,6 +1253,7 @@
 				4DEA7F4521CBC38D0085D42A /* BookindTrackingMovableMarkerType.swift in Sources */,
 				4D7406DA21DB32C900A62B6E /* UserConfigureModel.swift in Sources */,
 				4DAFF1C521CE088F002CF8EA /* UserRecieptHolderDriverRating.swift in Sources */,
+				4D0AD10C21FAE9270073CA69 /* MapViewController.swift in Sources */,
 				4D55B40B21D3570B00DE6BB5 /* CompleteRideModel.swift in Sources */,
 				4D787F2421DBD75600D8DC21 /* NotificationData.swift in Sources */,
 				4D7406CD21DB24E500A62B6E /* UserDefaultUtility.swift in Sources */,
@@ -1324,6 +1332,7 @@
 				4DEA7F1B21CB51DF0085D42A /* TrackRideViewController.swift in Sources */,
 				4D55B42F21D3A2FA00DE6BB5 /* ActiveTripViewController.swift in Sources */,
 				4D55B44F21D4D9D100DE6BB5 /* WalletData.swift in Sources */,
+				4D0AD10F21FAE99A0073CA69 /* CarsTimeCategories.swift in Sources */,
 				4D7406DD21DB32C900A62B6E /* UserConfigureAppMaintainance.swift in Sources */,
 				4DAFF1DA21CE4F1E002CF8EA /* CaraTimeData.swift in Sources */,
 				4D55B43B21D4982D00DE6BB5 /* CustomerSupportViewController.swift in Sources */,
@@ -1354,7 +1363,6 @@
 				4DACF84A21C7DD21006864EF /* RideNowViewController.swift in Sources */,
 				4D50ECB321F310AB00FED77A /* CancelReasonModelData.swift in Sources */,
 				4D55B40A21D3570B00DE6BB5 /* CompleteRideData.swift in Sources */,
-				4D38176321BF8EA200AE6924 /* MapViewController.swift in Sources */,
 				4D787F6121DE6FD800D8DC21 /* SendChatMessageModel.swift in Sources */,
 				4DAFF1DC21CE4F1E002CF8EA /* CarsTimeServiceTypes.swift in Sources */,
 				4D38174E21BF879A00AE6924 /* UIImageExtension.swift in Sources */,

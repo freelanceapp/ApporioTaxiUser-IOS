@@ -24,6 +24,11 @@ var mapviewcontroller :  MapViewController!
 
 class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     
+    @IBOutlet weak var topnewview: UIView!
+    
+    @IBOutlet weak var topnewcollectionview: UICollectionView!
+    
+    
     @IBOutlet weak var sorrywedontservetextlbl: UILabel!
     @IBOutlet weak var gotoactiveridetextlbl: UILabel!
     
@@ -167,6 +172,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     var locationManager = CLLocationManager()
     var selectcartypefirstvalue = 2000
      var selectfirstvalue = 0
+     var selectnewfirstvalue = 0
      var selectsecondvalue = 0
      var check = 1000
      var checksection = 1000
@@ -176,6 +182,11 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     var carstimedata: CarsTimeModel!
     
     var categorycollectionviewcount = 0
+    
+    var middlecategorycollectionviewcount = 0
+    
+    
+    var homescreenviewvalue = 0
     
     var servicecount = 0
     
@@ -193,6 +204,11 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
+        topnewview.setCornerCircular(12.0)
+        
+         AppConstants.enteramount = ""
         
         findingviewsomepaitencetextlbl.text = "Please have some paitence, we are finding ride for you".localized
         findingviewyourridetextlbl.text = "Finding Your Ride......".localized
@@ -208,6 +224,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
         
         
          selectfirstvalue = 0
+        selectnewfirstvalue = 0
          selectsecondvalue = 0
         
         pickuplocationtext.textColor = UIColor.black
@@ -262,6 +279,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
         ridenowview.isHidden = true
         packageview.isHidden = true
         topcategoryview.isHidden = true
+         topnewview.isHidden = true
         sorrynocategoryview.isHidden = true
         AppConstants.ridebooksuccessfully = 0
         findingrideview.isHidden = true
@@ -489,15 +507,47 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     }
     
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         
-        if self.categorycollectionviewcount == 1{
+        
+        if self.homescreenviewvalue == 0{
             
-            topcategoryview.isHidden = true
+            
+            if self.categorycollectionviewcount == 1{
+                
+                self.topcategoryview.isHidden = true
+                
+                
+            }else{
+                
+                self.topcategoryview.isHidden = false
+                
+            }
         }else{
-            topcategoryview.isHidden = false
             
+            
+            if self.categorycollectionviewcount == 1{
+                
+                self.topnewview.isHidden = true
+                
+                
+            }else{
+                
+                self.topnewview.isHidden = false
+                
+            }
+            
+            if self.middlecategorycollectionviewcount == 1 || self.middlecategorycollectionviewcount == 0{
+                
+                self.topcategoryview.isHidden = true
+            }else{
+                
+                self.topcategoryview.isHidden = false
+            }
         }
+        
         
         
         if AppConstants.droplat.count == 0{
@@ -667,6 +717,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
             ridenowview.isHidden = true
             packageview.isHidden = true
             topcategoryview.isHidden = true
+            topnewview.isHidden = true
               sorrynocategoryview.isHidden = true
              AppConstants.ridebooksuccessfully = 0
              findingrideview.isHidden = false
@@ -850,6 +901,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
         ridenowview.isHidden = false
         packageview.isHidden = false
         topcategoryview.isHidden = false
+        topnewview.isHidden = false
          findingrideview.isHidden = true
           sorrynocategoryview.isHidden = true
         
@@ -875,7 +927,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
     
     
     @IBAction func ridelaterbtnclick(_ sender: Any) {
-         AppConstants.BookingType = "2"
+        
         AppConstants.timer?.cancel()
         AppConstants.timer = nil
         
@@ -884,7 +936,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
             self.showErrorAlert("", alertMessage: "Please enter drop location first".localized, VC: self)
         }else{
         
-        
+         AppConstants.BookingType = "2"
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let myModalViewController = storyboard.instantiateViewController(withIdentifier: "TimePickerViewController")as! TimePickerViewController
          myModalViewController.viewcontrollerself = self
@@ -1339,7 +1391,71 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
         
         
         if gesture.direction == UISwipeGestureRecognizerDirection.right {
-
+            
+            
+            if carstimedata.homescreen == "2"{
+                
+                
+                if selectfirstvalue == 0{
+                    
+                    
+                }else{
+                    check = selectfirstvalue - 1
+                    checksection = 0
+                    selectfirstvalue = selectfirstvalue - 1
+                    
+                    let indexPathForFirstRow = IndexPath(row: selectfirstvalue, section: 0)
+                    self.categorycollectionview.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+                    
+                    
+                    
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+                        packageviewheight.constant = 60.0
+                        packageview.isHidden = false
+                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+                        packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+                        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                        
+                        
+                        self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+                        categorycollectionview.reloadData()
+                        packagecollectionview.reloadData()
+                        carcategorycollectionview.reloadData()
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        packageview.isHidden = true
+                        pleaseselectpackagetextlbl.text = ""
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
+                        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                        
+                        
+                        self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                        categorycollectionview.reloadData()
+                        packagecollectionview.reloadData()
+                        carcategorycollectionview.reloadData()
+                        
+                    }
+                    
+                    // carcategorycollectionviewcount = 3
+                    
+                    // carcategorycollectionview.reloadData()
+                    
+                    //  categorycollectionview.reloadData()
+                    
+                    
+                }
+            }else{
+            
+            if carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count == 0{
+                
+         
             if selectfirstvalue == 0{
 
 
@@ -1367,6 +1483,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
                     
                     self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
                     categorycollectionview.reloadData()
+                    topnewcollectionview.reloadData()
                     packagecollectionview.reloadData()
                     carcategorycollectionview.reloadData()
                     
@@ -1382,6 +1499,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
                     
                     self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
                     categorycollectionview.reloadData()
+                    topnewcollectionview.reloadData()
                     packagecollectionview.reloadData()
                     carcategorycollectionview.reloadData()
                     
@@ -1396,11 +1514,135 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
 
             }
 
+            }else{
+                
+                
+                if selectnewfirstvalue == 0{
+                    
+                    
+                }else{
+                    check = selectnewfirstvalue - 1
+                    checksection = 0
+                    selectnewfirstvalue = selectnewfirstvalue - 1
+                    
+                    let indexPathForFirstRow = IndexPath(row: selectnewfirstvalue, section: 0)
+                    self.topnewcollectionview.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+                    
+                    
+                    
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle?.count)!
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+//                        packageviewheight.constant = 60.0
+//                        packageview.isHidden = false
+//                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+//                        packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+//                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+//                        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+//
+//
+//                        self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+//                        categorycollectionview.reloadData()
+//                        topnewcollectionview.reloadData()
+//                        packagecollectionview.reloadData()
+//                        carcategorycollectionview.reloadData()
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        packageview.isHidden = true
+                        pleaseselectpackagetextlbl.text = ""
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle?.count)!
+                        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                        
+                        
+                        
+                        self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                        categorycollectionview.reloadData()
+                        topnewcollectionview.reloadData()
+                        packagecollectionview.reloadData()
+                        carcategorycollectionview.reloadData()
+                        
+                    }
 
+            }
+                
+            }
 
+                
+            }
         }
         else if gesture.direction == UISwipeGestureRecognizerDirection.left {
+            
+            
+            if carstimedata.homescreen == "2"{
+                
+                if selectfirstvalue == categorycollectionviewcount{
+                    
+                    
+                }else{
+                    
+                    
+                    
+                    print(check)
+                    
+                    if categorycollectionviewcount == check + 1{
+                        print("test")
+                    }else{
+                        
+                        check = selectfirstvalue + 1
+                        checksection = 0
+                        selectfirstvalue = selectfirstvalue + 1
+                        let indexPathForFirstRow = IndexPath(row: selectfirstvalue, section: 0)
+                        self.categorycollectionview.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+                        
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
+                        
+                        if self.carcategorycollectionviewcount == 0{
+                            selectsecondvalue = 0
+                            packageviewheight.constant = 60.0
+                            packageview.isHidden = false
+                            pleaseselectpackagetextlbl.text = "Please select a package".localized
+                            packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+                            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+                            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                            
+                            
+                            self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+                            categorycollectionview.reloadData()
+                            packagecollectionview.reloadData()
+                            carcategorycollectionview.reloadData()
+                            
+                            
+                        }else{
+                            packagecategorycollectionviewcount = 0
+                            packageviewheight.constant = 0.0
+                            packageview.isHidden = true
+                            pleaseselectpackagetextlbl.text = ""
+                            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
+                            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                            
+                            
+                            self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                            categorycollectionview.reloadData()
+                            packagecollectionview.reloadData()
+                            carcategorycollectionview.reloadData()
+                            
+                        }
+                        
+                        // carcategorycollectionview.reloadData()
+                        
+                        
+                        
+                    }
+                    
+                }
+            }else{
 
+            
+             if carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count == 0{
 
             if selectfirstvalue == categorycollectionviewcount{
 
@@ -1435,6 +1677,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
                         
                         self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
                         categorycollectionview.reloadData()
+                        topnewcollectionview.reloadData()
                         packagecollectionview.reloadData()
                         carcategorycollectionview.reloadData()
                         
@@ -1450,6 +1693,7 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
                         
                         self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
                         categorycollectionview.reloadData()
+                        topnewcollectionview.reloadData()
                         packagecollectionview.reloadData()
                         carcategorycollectionview.reloadData()
                         
@@ -1466,10 +1710,83 @@ class MapViewController: BaseViewController,NVActivityIndicatorViewable {
 
         }
 
+            
+        else{
+                
+                
+                if selectnewfirstvalue == middlecategorycollectionviewcount{
+                    
+                    
+                }else{
+                    
+                    
+                    
+                    print(check)
+                    
+                    if middlecategorycollectionviewcount == check + 1{
+                        print("test")
+                    }else{
+                        
+                        check = selectnewfirstvalue + 1
+                        checksection = 0
+                        selectnewfirstvalue = selectnewfirstvalue + 1
+                        let indexPathForFirstRow = IndexPath(row: selectnewfirstvalue, section: 0)
+                        self.topnewcollectionview.scrollToItem(at: indexPathForFirstRow, at: .centeredHorizontally, animated: true)
+                        
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle?.count)!
+                        
+                        if self.carcategorycollectionviewcount == 0{
+                            selectsecondvalue = 0
+//                            packageviewheight.constant = 60.0
+//                            packageview.isHidden = false
+//                            pleaseselectpackagetextlbl.text = "Please select a package".localized
+//                            packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+//                            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+//                            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+//
+//
+//                            self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+//                            categorycollectionview.reloadData()
+//                            topnewcollectionview.reloadData()
+//                            packagecollectionview.reloadData()
+//                            carcategorycollectionview.reloadData()
+                            
+                            
+                        }else{
+                            packagecategorycollectionviewcount = 0
+                            packageviewheight.constant = 0.0
+                            packageview.isHidden = true
+                            pleaseselectpackagetextlbl.text = ""
+                            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle?.count)!
+                            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                            
+                            
+                            self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                            categorycollectionview.reloadData()
+                            topnewcollectionview.reloadData()
+                            packagecollectionview.reloadData()
+                            carcategorycollectionview.reloadData()
+                            
+                        }
+                        
+                        // carcategorycollectionview.reloadData()
+                        
+                        
+                        
+                    }
+                    
+                }
+            
+            
+        }
+                
+            }
    }
 
   
 
+}
+    
 }
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate{
@@ -1498,6 +1815,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate{
         
         self.ridenowview.isHidden = true
         self.topcategoryview.isHidden = true
+        self.topnewview.isHidden = true
         self.packageview.isHidden = true
         self.sorrynocategoryview.isHidden = true
       
@@ -1545,14 +1863,44 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate{
             if let address = response?.firstResult() {
                 
                 self.ridenowview.isHidden = false
-                if self.categorycollectionviewcount == 1{
+                
+                if self.homescreenviewvalue == 0{
                     
+                    
+                    if self.categorycollectionviewcount == 1{
+                        
+                        self.topcategoryview.isHidden = true
+                        
+                        
+                    }else{
+                        
+                        self.topcategoryview.isHidden = false
+                        
+                    }
+                }else{
+                    
+                    
+                    if self.categorycollectionviewcount == 1{
+                        
+                        self.topnewview.isHidden = true
+                        
+                        
+                    }else{
+                        
+                        self.topnewview.isHidden = false
+                        
+                    }
+                
+                if self.middlecategorycollectionviewcount == 1 || self.middlecategorycollectionviewcount == 0{
+                   
                     self.topcategoryview.isHidden = true
                 }else{
+                   
                     self.topcategoryview.isHidden = false
-                    
+                }
                 }
                 
+               
                 self.packageview.isHidden = false
                 
                 
@@ -1560,6 +1908,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate{
                     
                     
                     if(self.i == 1){
+                        
+                        print("xfcgvhbjn,m.")
                         self.pickuplocationtext.text =  AppConstants.userselectaddressLocation
                         self.i = 0
                         
@@ -1569,7 +1919,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate{
                         
                         
      
-                
+                 print("xfcgvhbjn,m.2345678")
                 
                 let lines = address.lines
                     AppConstants.userselectaddressLng = String(coordinate.longitude)
@@ -1810,11 +2160,21 @@ extension MapViewController: UITableViewDelegate,UITableViewDataSource,MFMailCom
                  labelshow.isHidden = true
                 
             }
+        
+        
+        
             
             let image = UIImage(named: imageArray[indexPath.row])
             
             imageview.image = image
+        
+        
+//        imageview.image = imageview.image!.withRenderingMode(.alwaysTemplate)
+//        imageview.tintColor = UIColor.appThemeColor()
+//
             label.text = dataArray[indexPath.row]
+        
+       // label.textColor = UIColor.appThemeColor1()
             
             
             return cell1
@@ -1824,9 +2184,6 @@ extension MapViewController: UITableViewDelegate,UITableViewDataSource,MFMailCom
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
        
-        
-     
-           
              menutable.deselectRow(at: indexPath, animated: true)
             if indexPath.row == 0{
                 AppConstants.timer?.cancel()
@@ -1852,7 +2209,7 @@ extension MapViewController: UITableViewDelegate,UITableViewDataSource,MFMailCom
                 self.slidingview.alpha = 0
                 self.blackView.alpha = 0
                 self.presentVC("ManageYourCardViewController")
-                
+
             }
             if indexPath.row == 3{
                 AppConstants.timer?.cancel()
@@ -1960,10 +2317,10 @@ extension MapViewController: UITableViewDelegate,UITableViewDataSource,MFMailCom
                 let cancelAction = UIAlertAction(title: "Cancel".localized,
                                                  style: .cancel, handler: nil)
                 alertView.addAction(langEnglish)
-                alertView.addAction(langSpanish)
-                alertView.addAction(langFrench)
-                alertView.addAction(langPortuguese)
-                alertView.addAction(langTurkish)
+              //  alertView.addAction(langSpanish)
+              //  alertView.addAction(langFrench)
+              //  alertView.addAction(langPortuguese)
+               // alertView.addAction(langTurkish)
                 alertView.addAction(langArabic)
                 alertView.addAction(cancelAction)
                 self.present(alertView, animated: true, completion: nil)
@@ -2128,8 +2485,11 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
             var cellWidth = 70
             
             var cellSpacing = 5
+           
             
             if self.carcategorycollectionviewcount > 3{
+                
+               
                 cellWidth = 60
                 cellSpacing = 5
                 
@@ -2140,8 +2500,7 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
                 
             }
             
-            
-            
+      
              let cellCount = carcategorycollectionviewcount
         
             let totalCellWidth = cellWidth * cellCount
@@ -2155,8 +2514,39 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
             
         }else if collectionView.tag == 2{
             
+            var cellCount = 0
+            
+            if middlecategorycollectionviewcount == 0{
+                 cellCount = categorycollectionviewcount
+            }else{
+                 cellCount = middlecategorycollectionviewcount
+                
+            }
+            
             let cellWidth = 70
 
+            let cellSpacing = 10
+            
+
+            let totalCellWidth = cellWidth * cellCount
+            let totalSpacingWidth = cellSpacing * (cellCount - 1)
+            
+           
+            
+            let leftInset = (categorycollectionview.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+            
+          
+            
+            let rightInset = leftInset
+            
+          
+            
+            return UIEdgeInsetsMake(0, leftInset, 0, rightInset)
+            
+        }else if collectionView.tag == 4{
+            
+            let cellWidth = 80
+            
             let cellSpacing = 10
             
             
@@ -2164,13 +2554,20 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
             
             let cellCount = categorycollectionviewcount
             
+            
+            print("regh\(cellCount)")
+            
             let totalCellWidth = cellWidth * cellCount
             let totalSpacingWidth = cellSpacing * (cellCount - 1)
             
-            let leftInset = (categorycollectionview.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+       
+            let leftInset = (topnewcollectionview.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+            
+            
+            
             let rightInset = leftInset
             
-          
+            
             
             return UIEdgeInsetsMake(0, leftInset, 0, rightInset)
             
@@ -2203,10 +2600,13 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
 
         let flowLayout: UICollectionViewFlowLayout = categorycollectionview.collectionViewLayout as! UICollectionViewFlowLayout
 
-        flowLayout.itemSize = CGSize(width:(self.categorycollectionview.frame.width / 3) - 6 ,height: 45)
+        flowLayout.itemSize = CGSize(width:(self.categorycollectionview.frame.width - 6) / 3 ,height: 45)
 
 
-    
+        let flowLayout1: UICollectionViewFlowLayout = topnewcollectionview.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        flowLayout1.itemSize = CGSize(width:(self.topnewcollectionview.frame.width - 6) / 3 ,height: 35)
+
 
     }
 
@@ -2218,6 +2618,24 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
         return carcategorycollectionviewcount
             
         }else if collectionView.tag == 2{
+            
+//            if carstimedata.homescreen == "2"{
+//                return categorycollectionviewcount
+//            }else{
+//                return middlecategorycollectionviewcount
+//
+//            }
+    
+            if self.homescreenviewvalue == 0{
+                 return categorycollectionviewcount
+            }else{
+
+            return middlecategorycollectionviewcount
+
+            }
+            
+        }
+        else if collectionView.tag == 4{
             return categorycollectionviewcount
             
         }else{
@@ -2241,10 +2659,56 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
             
             let cartypeimage: UIImageView = cell.contentView.viewWithTag(3) as! UIImageView
             
+            if carstimedata.homescreen == "2"{
+                
+                
+                if carstimedata.data?.serviceTypes![selectfirstvalue].package?.count == 0{
+                    carname.text = carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].vehicleTypeName
+                    
+                    let newString = carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].vehicleTypeImage!
+                    
+                    let url = AppConstants.APIURL.IMAGE_URL + newString!
+                    
+                    let url1 = NSURL(string: url)
+                    
+                    
+                    cartypeimage.af_setImage(withURL:
+                        url1! as URL,
+                                             placeholderImage: UIImage(named: "dress"),
+                                             filter: nil,
+                                             imageTransition: .crossDissolve(1.0))
+                    
+                    
+                    
+                    
+                }else{
+                    
+                    let newString = carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].vehicleTypeImage
+                    
+                    let url = AppConstants.APIURL.IMAGE_URL + newString!
+                    
+                    let url1 = NSURL(string: url)
+                    
+                    
+                    cartypeimage.af_setImage(withURL:
+                        url1! as URL,
+                                             placeholderImage: UIImage(named: "dress"),
+                                             filter: nil,
+                                             imageTransition: .crossDissolve(1.0))
+                    
+                    
+                    
+                    carname.text = carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].vehicleTypeName
+                }
+                
+            }else{
             
             
+         
             
-           // mainview.edgeWithShadow(edge: 4.0)
+            if carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count == 0{
+                
+              
             
              if carstimedata.data?.serviceTypes![selectfirstvalue].package?.count == 0{
                  carname.text = carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].vehicleTypeName
@@ -2285,6 +2749,31 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
              carname.text = carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].vehicleTypeName
             }
             
+                
+            }else{
+                
+                let newString = carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle![indexPath.row].vehicleTypeImage
+                
+                let url = AppConstants.APIURL.IMAGE_URL + newString!
+                
+                let url1 = NSURL(string: url)
+                
+                
+                cartypeimage.af_setImage(withURL:
+                    url1! as URL,
+                                         placeholderImage: UIImage(named: "dress"),
+                                         filter: nil,
+                                         imageTransition: .crossDissolve(1.0))
+                
+                
+                
+                carname.text = carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle![indexPath.row].vehicleTypeName
+                
+                
+            }
+                
+                
+            }
             
             if(selectcartypefirstvalue == indexPath.row){
                 
@@ -2311,26 +2800,69 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
             
             mainview.edgeWithOutShadow(edge: 16.0)
             
-            
-            
-            categoryname.text = carstimedata.data?.serviceTypes![indexPath.row].serviceName
-            
-            if(selectfirstvalue == indexPath.row){
+            if carstimedata.homescreen == "2"{
 
-                mainview.backgroundColor = UIColor.appThemeColor()
-
+                 categoryname.text = carstimedata.data?.serviceTypes![indexPath.row].serviceName
+                
+                if(selectfirstvalue == indexPath.row){
+                    
+                    mainview.backgroundColor = UIColor.appThemeColor()
+                    
+                }else{
+                    mainview.backgroundColor = UIColor.white
+                }
             }else{
-                mainview.backgroundColor = UIColor.white
+            
+             categoryname.text = carstimedata.data?.serviceTypes![0].categories![indexPath.row].name
+                
+                if(selectnewfirstvalue == indexPath.row){
+                    
+                    mainview.backgroundColor = UIColor.appThemeColor()
+                    
+                }else{
+                    mainview.backgroundColor = UIColor.white
+                }
+                
             }
             
-           // topcategoryviewwidth
+           
             
-            
+       
            
             
             return cell1
             
-        }else if collectionView.tag == 3{
+        }else if collectionView.tag == 4{
+            
+            let cell1 = topnewcollectionview.dequeueReusableCell(withReuseIdentifier: "topnewcell", for: indexPath)
+            
+            let mainview: UIView = cell1.contentView.viewWithTag(1)!
+            
+            let categoryname: UILabel = cell1.contentView.viewWithTag(2) as! UILabel
+            
+            mainview.edgeWithOutShadow(edge: 16.0)
+            
+           
+            
+            categoryname.text = carstimedata.data?.serviceTypes![indexPath.row].serviceName
+            
+            if(selectfirstvalue == indexPath.row){
+                
+                mainview.backgroundColor = UIColor.appThemeColor()
+                
+            }else{
+                mainview.backgroundColor = UIColor.white
+            }
+            
+            // topcategoryviewwidth
+            
+            
+            
+            
+            return cell1
+            
+        }
+        else if collectionView.tag == 3{
             
              let cell2 = packagecollectionview.dequeueReusableCell(withReuseIdentifier: "packagecell", for: indexPath)
             
@@ -2378,111 +2910,314 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
         if collectionView.tag == 1{
             
             selectcartypefirstvalue = indexPath.row
-           
-            if carstimedata.data?.serviceTypes![selectfirstvalue].package?.count == 0{
+            
+            if carstimedata.homescreen == "2"{
                 
-                AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
+                topnewview.isHidden = true
                 
-                AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].servicetypeid!)!)
-                
-                AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].id!)!)
-                
-                AppConstants.AreaID = String((carstimedata.data?.id!)!)
-                
-                
-                
-              if  AppConstants.ServiceType == "4"{
-                
-                firstridelaterbtnview.isHidden = true
-                secondridenowbtnview.isHidden = false
-                
-                ridenowtextlbl.text = "Continue".localized
+                if carstimedata.data?.serviceTypes![selectfirstvalue].package?.count == 0{
                     
-              }else if AppConstants.ServiceType == "5"{
-                
-                firstridelaterbtnview.isHidden = true
-                secondridenowbtnview.isHidden = false
-                
-                ridenowtextlbl.text = "Ride Now".localized
-                
-                
-              }else{
-                
-                firstridelaterbtnview.isHidden = false
-                secondridenowbtnview.isHidden = false
-                
-                ridenowtextlbl.text = "Ride Now".localized
-                ridelatertextlbl.text = "Ride Later".localized
-                
-                }
-                
-                
-                if AppConstants.ServiceType == "1"{
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
                     
-                    if (AppConstants.userconfiguredata.data?.Multidestination)!{
-                         dropplusbtnview.isHidden = false
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].servicetypeid!)!)
+                    
+                    AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].id!)!)
+                    
+                    AppConstants.AreaID = String((carstimedata.data?.id!)!)
+                    
+                    
+                    
+                    if  AppConstants.ServiceType == "4"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Continue".localized
+                        
+                    }else if AppConstants.ServiceType == "5"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        
+                        
                     }else{
-                         dropplusbtnview.isHidden = true
+                        
+                        firstridelaterbtnview.isHidden = false
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        ridelatertextlbl.text = "Ride Later".localized
+                        
                     }
                     
-                   
-                }else{
                     
-                     dropplusbtnview.isHidden = true
-                }
-                
-                
-          
-               
-            }else{
-                
-                AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
-                
-                 AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].servicetypeid!)!)
-                
-                AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].id!)!)
-                
-                AppConstants.AreaID = String((carstimedata.data?.id!)!)
-                
-                if  AppConstants.ServiceType == "4"{
-                    
-                    firstridelaterbtnview.isHidden = true
-                    secondridenowbtnview.isHidden = false
-                    
-                    ridenowtextlbl.text = "Continue".localized
-                    
-                }else if AppConstants.ServiceType == "5"{
-                    
-                    firstridelaterbtnview.isHidden = true
-                    secondridenowbtnview.isHidden = false
-                    
-                    ridenowtextlbl.text = "Ride Now".localized
-                    
-                    
-                }else{
-                    
-                    firstridelaterbtnview.isHidden = false
-                    secondridenowbtnview.isHidden = false
-                    
-                    ridenowtextlbl.text = "Ride Now".localized
-                    ridelatertextlbl.text = "Ride Later".localized
-                    
-                }
-                
-                if AppConstants.ServiceType == "1"{
-                    
-                    if (AppConstants.userconfiguredata.data?.Multidestination)!{
-                        dropplusbtnview.isHidden = false
+                    if AppConstants.ServiceType == "1"{
+                        
+                        if (AppConstants.userconfiguredata.data?.Multidestination)!{
+                            dropplusbtnview.isHidden = false
+                        }else{
+                            dropplusbtnview.isHidden = true
+                        }
+                        
+                        
                     }else{
+                        
                         dropplusbtnview.isHidden = true
                     }
+                    
+                    
+                    
+                    
                 }else{
                     
-                    dropplusbtnview.isHidden = true
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
+                    
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].servicetypeid!)!)
+                    
+                    AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].id!)!)
+                    
+                    AppConstants.AreaID = String((carstimedata.data?.id!)!)
+                    
+                    if  AppConstants.ServiceType == "4"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Continue".localized
+                        
+                    }else if AppConstants.ServiceType == "5"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        
+                        
+                    }else{
+                        
+                        firstridelaterbtnview.isHidden = false
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        ridelatertextlbl.text = "Ride Later".localized
+                        
+                    }
+                    
+                    if AppConstants.ServiceType == "1"{
+                        
+                        if (AppConstants.userconfiguredata.data?.Multidestination)!{
+                            dropplusbtnview.isHidden = false
+                        }else{
+                            dropplusbtnview.isHidden = true
+                        }
+                    }else{
+                        
+                        dropplusbtnview.isHidden = true
+                    }
+                    
+                    
+                    
                 }
                 
                 
+            }else{
+             topnewview.isHidden = false
+            
+             if carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count == 0{
+                
+                
+                if carstimedata.data?.serviceTypes![selectfirstvalue].package?.count == 0{
+                    
+                    
+                    
+                    
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
+                    
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].servicetypeid!)!)
+                    
+                    AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].vehicles![indexPath.row].id!)!)
+                    
+                    AppConstants.AreaID = String((carstimedata.data?.id!)!)
+                    
+                    
+                    
+                    if  AppConstants.ServiceType == "4"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Continue".localized
+                        
+                    }else if AppConstants.ServiceType == "5"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        
+                        
+                    }else{
+                        
+                        firstridelaterbtnview.isHidden = false
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        ridelatertextlbl.text = "Ride Later".localized
+                        
+                    }
+                    
+                    
+                    if AppConstants.ServiceType == "1"{
+                        
+                        if (AppConstants.userconfiguredata.data?.Multidestination)!{
+                            dropplusbtnview.isHidden = false
+                        }else{
+                            dropplusbtnview.isHidden = true
+                        }
+                        
+                        
+                    }else{
+                        
+                        dropplusbtnview.isHidden = true
+                    }
+                    
+                    
+                    
+                    
+                }else{
+                    
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].id!)!)
+                    
+                    AppConstants.ServiceType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].servicetypeid!)!)
+                    
+                    AppConstants.VehicleType = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![selectsecondvalue].vehicles![indexPath.row].id!)!)
+                    
+                    AppConstants.AreaID = String((carstimedata.data?.id!)!)
+                    
+                    if  AppConstants.ServiceType == "4"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Continue".localized
+                        
+                    }else if AppConstants.ServiceType == "5"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        
+                        
+                    }else{
+                        
+                        firstridelaterbtnview.isHidden = false
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        ridelatertextlbl.text = "Ride Later".localized
+                        
+                    }
+                    
+                    if AppConstants.ServiceType == "1"{
+                        
+                        if (AppConstants.userconfiguredata.data?.Multidestination)!{
+                            dropplusbtnview.isHidden = false
+                        }else{
+                            dropplusbtnview.isHidden = true
+                        }
+                    }else{
+                        
+                        dropplusbtnview.isHidden = true
+                    }
+                    
+                    
+                    
+                }
+                
+                
+             }else{
+                
+                if AppConstants.ServiceType == "1"{
+                    if self.middlecategorycollectionviewcount == 1 || self.middlecategorycollectionviewcount == 0{
+                        
+                        topcategoryview.isHidden = true
+                    }else{
+                        topcategoryview.isHidden = false
+                        
+                    }
+                    
+                }else{
+                    
+                
+                   // topcategoryview.isHidden = true
+                }
+                
                
+                
+                
+                    
+                    
+                    
+         
+                
+                print("fghjk\(selectfirstvalue)")
+                print("fghjk123\(selectnewfirstvalue)")
+                    
+                AppConstants.ServiceType = String((self.carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle![indexPath.row].serviceTypeId!)!)
+                    
+                    AppConstants.VehicleType = String((self.carstimedata.data?.serviceTypes![selectfirstvalue].categories![selectnewfirstvalue].vehicle![indexPath.row].id!)!)
+                    
+                    AppConstants.AreaID = String((carstimedata.data?.id!)!)
+                    
+                    
+                    
+                    if  AppConstants.ServiceType == "4"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Continue".localized
+                        
+                    }else if AppConstants.ServiceType == "5"{
+                        
+                        firstridelaterbtnview.isHidden = true
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        
+                        
+                    }else{
+                        
+                        firstridelaterbtnview.isHidden = false
+                        secondridenowbtnview.isHidden = false
+                        
+                        ridenowtextlbl.text = "Ride Now".localized
+                        ridelatertextlbl.text = "Ride Later".localized
+                        
+                    }
+                    
+                    
+                    if AppConstants.ServiceType == "1"{
+                        
+                        if (AppConstants.userconfiguredata.data?.Multidestination)!{
+                            dropplusbtnview.isHidden = false
+                        }else{
+                            dropplusbtnview.isHidden = true
+                        }
+                        
+                        
+                    }else{
+                        
+                        dropplusbtnview.isHidden = true
+                    }
+                    
+  
+                
+            }
+           
             }
             
             
@@ -2492,70 +3227,153 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
           //  categorycollectionview.reloadData()
 
             
-        }else if collectionView.tag == 2{
-//            check = indexPath.row
-//            checksection = 0
+        }else if collectionView.tag == 4{
             
-          //  selectsecondvalue = 0
+            
+
             selectfirstvalue = indexPath.row
-            
-//            if carstimedata.data?.serviceTypes![selectfirstvalue].id == 4{
-//
-//
-//
-//
-//            }else{
-//
-//
-//
-          
+            selectnewfirstvalue = 0
+       
+            if self.carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count == 0{
                 
-//          self.carcategorycollectionviewcount = 10
-//            carcategorycollectionview.reloadData()
-            
-            
-             self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
-            
-            if self.carcategorycollectionviewcount == 0{
                 
-                packageviewheight.constant = 60.0
-                packageview.isHidden = false
-                pleaseselectpackagetextlbl.text = "Please select a package".localized
-                 packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
-                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+                 middlecategorycollectionviewcount = 0
+               // categorycollectionviewcount = 0
                 
-                let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-             
+                topcategoryview.isHidden = true
+                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
                 
-                self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
-               
-              //  packagecollectionview.reloadData()
-              //  carcategorycollectionview.reloadData()
-                categorycollectionview.reloadData()
+                if self.carcategorycollectionviewcount == 0{
+                    
+                    packageviewheight.constant = 60.0
+                    packageview.isHidden = false
+                    pleaseselectpackagetextlbl.text = "Please select a package".localized
+                    packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+                    
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                    
+                    
+                    self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+                    
+                    //  packagecollectionview.reloadData()
+                    //  carcategorycollectionview.reloadData()
+                    categorycollectionview.reloadData()
+                    topnewcollectionview.reloadData()
+                    
+                    
+                }else{
+                    packagecategorycollectionviewcount = 0
+                    packageviewheight.constant = 0.0
+                    packageview.isHidden = true
+                    pleaseselectpackagetextlbl.text = ""
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![indexPath.row].vehicles?.count)!
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                    
+                    self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                    packagecollectionview.reloadData()
+                    //     carcategorycollectionview.reloadData()
+                    categorycollectionview.reloadData()
+                    topnewcollectionview.reloadData()
+                
+            }
                 
                 
             }else{
+                
+                
+                middlecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].categories?.count)!
+                
+                topcategoryview.isHidden = false
+                
                 packagecategorycollectionviewcount = 0
                 packageviewheight.constant = 0.0
                 packageview.isHidden = true
                 pleaseselectpackagetextlbl.text = ""
-                 self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![indexPath.row].vehicles?.count)!
+                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].categories![indexPath.row].vehicle!.count)!
                 let indexPathForFirstRow = IndexPath(row: 0, section: 0)
                 
                 self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
                 packagecollectionview.reloadData()
-           //     carcategorycollectionview.reloadData()
-               categorycollectionview.reloadData()
+                //     carcategorycollectionview.reloadData()
+                categorycollectionview.reloadData()
+                topnewcollectionview.reloadData()
                 
             }
-                
           //  }
+            
+        }else if collectionView.tag == 2{
+            
+            
+            if carstimedata.homescreen == "2"{
+                
+                selectfirstvalue = indexPath.row
+                
+                
+                
+                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
+                
+                if self.carcategorycollectionviewcount == 0{
+                    
+                    packageviewheight.constant = 60.0
+                    packageview.isHidden = false
+                    pleaseselectpackagetextlbl.text = "Please select a package".localized
+                    packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![0].vehicles?.count)!
+                    
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                    
+                    
+                    self.collectionView(packagecollectionview, didSelectItemAt: indexPathForFirstRow)
+                    
+                    //  packagecollectionview.reloadData()
+                    //  carcategorycollectionview.reloadData()
+                    categorycollectionview.reloadData()
+                    
+                    
+                }else{
+                    packagecategorycollectionviewcount = 0
+                    packageviewheight.constant = 0.0
+                    packageview.isHidden = true
+                    pleaseselectpackagetextlbl.text = ""
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![indexPath.row].vehicles?.count)!
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                    
+                    self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                    packagecollectionview.reloadData()
+                    //     carcategorycollectionview.reloadData()
+                    categorycollectionview.reloadData()
+                    
+                }
+                
+                
+                
+                
+            }else{
+           
+            selectnewfirstvalue = indexPath.row
+          
+            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].categories![indexPath.row].vehicle!.count)!
+            
+            
+            packagecategorycollectionviewcount = 0
+                            packageviewheight.constant = 0.0
+                            packageview.isHidden = true
+                            pleaseselectpackagetextlbl.text = ""
+                            //self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![indexPath.row].vehicles?.count)!
+                            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+            
+                            self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                            packagecollectionview.reloadData()
+                            //     carcategorycollectionview.reloadData()
+                            categorycollectionview.reloadData()
+                            topnewcollectionview.reloadData()
+            
+                }
             
         }else if collectionView.tag == 3{
             
              selectsecondvalue = indexPath.row
-            
-            
             
             
                             packageviewheight.constant = 60.0
@@ -2572,47 +3390,12 @@ extension MapViewController: UICollectionViewDataSource,UICollectionViewDelegate
                             packagecollectionview.reloadData()
                           //  carcategorycollectionview.reloadData()
                            categorycollectionview.reloadData()
+            topnewcollectionview.reloadData()
             //
             
             
             
-//            self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].vehicles?.count)!
-//
-//            if self.carcategorycollectionviewcount == 0{
-//
-//                packageviewheight.constant = 60.0
-//                packageview.isHidden = false
-//
-//
-//                packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package?.count)!
-//                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![selectfirstvalue].package![indexPath.row].vehicles?.count)!
-//                 AppConstants.VehicleID = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![indexPath.row].id)!)
-//                let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-//
-//
-//                self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
-//                packagecollectionview.reloadData()
-//                carcategorycollectionview.reloadData()
-//                categorycollectionview.reloadData()
-//
-//
-//            }else{
-//                packagecategorycollectionviewcount = 0
-//                packageviewheight.constant = 0.0
-//                packageview.isHidden = true
-//                 self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![indexPath.row].vehicles?.count)!
-//                 AppConstants.VehicleID = String((carstimedata.data?.serviceTypes![selectfirstvalue].package![indexPath.row].id)!)
-////                let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-////
-////
-////                self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
-//                packagecollectionview.reloadData()
-//                carcategorycollectionview.reloadData()
-//                categorycollectionview.reloadData()
-//
-//
-//            }
-//
+
             
         }
         
@@ -2649,7 +3432,14 @@ extension MapViewController: ApiResponseReceiver {
             
             if carstimedata.result == "1" {
                 
+                
+                
+                
                 hideLoaderWithoutBackground()
+                
+                selectfirstvalue = 0
+                selectnewfirstvalue = 0
+                selectsecondvalue = 0
                 
                  sorrynocategoryview.isHidden = true
                 ridenowview.isHidden = false
@@ -2657,83 +3447,206 @@ extension MapViewController: ApiResponseReceiver {
                 packageview.isHidden = false
               
                 
-                self.getpolygon()
+                //self.getpolygon()
                 
                 
                 AppConstants.currencysymbol = carstimedata.currency!
                 
                 
-                if carstimedata.data?.serviceTypes?.count == 1{
+                if carstimedata.homescreen == "2"{
                     
-                     topcategoryview.isHidden = true
+                    topnewview.isHidden = true
+                    
+                    homescreenviewvalue = 0
+                    
+                    if carstimedata.data?.serviceTypes?.count == 1{
+                        
+                        topcategoryview.isHidden = true
+                    }else{
+                        topcategoryview.isHidden = false
+                        
+                    }
+                    
+                 
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+                        packageviewheight.constant = 60.0
+                        packageview.isHidden = false
+                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+                        packagecategorycollectionviewcount = 0
+                        // self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package![0].vehicles?.count)!
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        packageview.isHidden = true
+                        pleaseselectpackagetextlbl.text = ""
+                        
+                        
+                    }
+                    
+                    
+                    
+                    self.categorycollectionviewcount = (carstimedata.data?.serviceTypes?.count)!
+                    
+                    self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].vehicles?.count)!
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+                        packageviewheight.constant = 60.0
+                        packageview.isHidden = false
+                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+                        packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package?.count)!
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package![0].vehicles?.count)!
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        pleaseselectpackagetextlbl.text = ""
+                        packageview.isHidden = true
+                        
+                        
+                    }
+                    
+                    
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                   
+                    
+                    self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                    
+                   
+                    
+                    categorycollectionview.reloadData()
+                    
+                    carcategorycollectionview.reloadData()
+                    
+                    packagecollectionview.reloadData()
+                    
+                    
+                    
                 }else{
-                    topcategoryview.isHidden = false
+                    
+                    
+                    homescreenviewvalue = 1
+                    
+                    if carstimedata.data?.serviceTypes?.count == 1{
+                        
+                        topnewview.isHidden = true
+                    }else{
+                        topnewview.isHidden = false
+                        
+                    }
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+                        packageviewheight.constant = 60.0
+                        packageview.isHidden = false
+                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+                        packagecategorycollectionviewcount = 0
+                        
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        packageview.isHidden = true
+                        pleaseselectpackagetextlbl.text = ""
+                        
+                        
+                    }
+                    
+                    
+                    if self.carstimedata.data?.serviceTypes?.count == 0{
+                        
+                        self.middlecategorycollectionviewcount = 0
+                    }else{
+                      
+                        
+                        self.middlecategorycollectionviewcount = (self.carstimedata.data?.serviceTypes![0].categories?.count)!
+                        
+                        
+                        if self.middlecategorycollectionviewcount == 1 || self.middlecategorycollectionviewcount == 0{
+                            
+                            topcategoryview.isHidden = true
+                        }else{
+                            topcategoryview.isHidden = false
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    self.categorycollectionviewcount = (carstimedata.data?.serviceTypes?.count)!
+                    
+                    
+                    if self.carstimedata.data?.serviceTypes![0].categories?.count == 0{
+                        
+                        // topcategoryview.isHidden = true
+                        
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].vehicles?.count)!
+                        
+                        
+                    }else{
+                        
+                        // topcategoryview.isHidden = false
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].categories![0].vehicle?.count)!
+                        
+                    }
+                    
+                    
+                    
+                    
+                    if self.carcategorycollectionviewcount == 0{
+                        
+                        packageviewheight.constant = 60.0
+                        packageview.isHidden = false
+                        pleaseselectpackagetextlbl.text = "Please select a package".localized
+                        packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package?.count)!
+                        self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package![0].vehicles?.count)!
+                        
+                        
+                    }else{
+                        packagecategorycollectionviewcount = 0
+                        packageviewheight.constant = 0.0
+                        pleaseselectpackagetextlbl.text = ""
+                        packageview.isHidden = true
+                        
+                        
+                    }
+                    
+                    
+                    let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+                    // self.MapCollectionview?.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
+                    
+                    self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
+                    
+                    //self.carcategorycollectionviewcount = 6
+                    
+                    categorycollectionview.reloadData()
+                    
+                    topnewcollectionview.reloadData()
+                    
+                    carcategorycollectionview.reloadData()
+                    
+                    packagecollectionview.reloadData()
+                    
+                    
+                    
+                    
                     
                 }
                 
                 
-   
-                
-
-                
-
-                if self.carcategorycollectionviewcount == 0{
-
-                    packageviewheight.constant = 60.0
-                    packageview.isHidden = false
-                    pleaseselectpackagetextlbl.text = "Please select a package".localized
-                    packagecategorycollectionviewcount = 0
-                   // self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package![0].vehicles?.count)!
-
-
-                }else{
-                    packagecategorycollectionviewcount = 0
-                    packageviewheight.constant = 0.0
-                    packageview.isHidden = true
-                    pleaseselectpackagetextlbl.text = ""
-
-
-                }
-
-
-
-                self.categorycollectionviewcount = (carstimedata.data?.serviceTypes?.count)!
-
-                self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].vehicles?.count)!
-
-                if self.carcategorycollectionviewcount == 0{
-
-                    packageviewheight.constant = 60.0
-                    packageview.isHidden = false
-                    pleaseselectpackagetextlbl.text = "Please select a package".localized
-                    packagecategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package?.count)!
-                     self.carcategorycollectionviewcount = (carstimedata.data?.serviceTypes![0].package![0].vehicles?.count)!
-
-
-                }else{
-                    packagecategorycollectionviewcount = 0
-                    packageviewheight.constant = 0.0
-                    pleaseselectpackagetextlbl.text = ""
-                    packageview.isHidden = true
-
-
-                }
-
-
-                let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-                // self.MapCollectionview?.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
-
-                self.collectionView(carcategorycollectionview, didSelectItemAt: indexPathForFirstRow)
-
-                 //self.carcategorycollectionviewcount = 6
-
-                categorycollectionview.reloadData()
-
-                carcategorycollectionview.reloadData()
-
-                packagecollectionview.reloadData()
+               
                 
                 
+               
+
+
+               
                 
                 
 //                let indexPathForFirstRow = IndexPath(row: 0, section: 0)
@@ -2755,10 +3668,17 @@ extension MapViewController: ApiResponseReceiver {
                 
             } else {
                 
+                selectfirstvalue = 0
+                selectnewfirstvalue = 0
+                selectsecondvalue = 0
+                self.carstimedata = nil
+                AppConstants.timer?.cancel()
+                AppConstants.timer = nil
                 
                 ridenowview.isHidden = true
                 topcategoryview.isHidden = true
                 packageview.isHidden = true
+                topnewview.isHidden = true
             sorrynocategoryview.isHidden = false
                 
                 self.newpath.removeAllCoordinates()
@@ -3057,6 +3977,7 @@ extension MapViewController: ApiResponseReceiver {
                     AppConstants.timer = nil
                     locationview.isHidden = false
                     ridenowview.isHidden = false
+                     topnewview.isHidden = false
                     packageview.isHidden = false
                     topcategoryview.isHidden = false
                     findingrideview.isHidden = true
@@ -3070,6 +3991,7 @@ extension MapViewController: ApiResponseReceiver {
                     AppConstants.timer = nil
                     locationview.isHidden = false
                     ridenowview.isHidden = false
+                     topnewview.isHidden = false
                     packageview.isHidden = false
                     topcategoryview.isHidden = false
                     findingrideview.isHidden = true
@@ -3120,6 +4042,7 @@ extension MapViewController: ApiResponseReceiver {
                 AppConstants.timer = nil
                 locationview.isHidden = false
                                     ridenowview.isHidden = false
+                 topnewview.isHidden = false
                                     packageview.isHidden = false
                                     topcategoryview.isHidden = false
                                     findingrideview.isHidden = true
@@ -3240,7 +4163,7 @@ extension MapViewController: ApiResponseReceiver {
                             
                         }
                         
-                    setMarkers(driverId: (data.data?[i].driverId)!, lat: Double(latitude)!, long: Double(longitude)! ,status: Int("1")! , cartypeid: AppConstants.VehicleType ,BearningFactor: bearningdegree)
+                        setMarkers(driverId: String((data.data?[i].driverId)!), lat: Double(latitude)!, long: Double(longitude)! ,status: Int("1")! , cartypeid: AppConstants.VehicleType ,BearningFactor: bearningdegree)
                         
                        // testing()
                         
@@ -3529,9 +4452,6 @@ extension MapViewController
 
 
 extension MapViewController: UIGestureRecognizerDelegate {
-    
-    
-    
     
     
     @objc func wasSwiped(gestureRecognizer: UISwipeGestureRecognizer) {

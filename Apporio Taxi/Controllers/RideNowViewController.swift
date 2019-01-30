@@ -13,6 +13,7 @@ import ObjectMapper
 class RideNowViewController: BaseViewController {
     
     
+    @IBOutlet weak var paymentcancelview: UIView!
     
     
     @IBOutlet weak var confirmbtntext: UIButton!
@@ -67,6 +68,8 @@ class RideNowViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        paymentcancelview.isHidden = true
         
         farepolicytextlbl.text = "Fare Policy".localized
         farewillbeadjustextlbl.text = "Fare will be adjusted with based on our pricing policy and other necessary requirements.".localized
@@ -186,6 +189,16 @@ class RideNowViewController: BaseViewController {
         secondviewsecondlbltext.text =  AppConstants.Ridenowcheckoutmodeldata.data?.estimateBill
         
         secondviewthirdlbltext.text = AppConstants.Ridenowcheckoutmodeldata.data?.discountedAmout
+        
+        
+        if AppConstants.Ridenowcheckoutmodeldata.data?.discountedAmout == ""{
+            
+            self.paymentcancelview.isHidden = true
+            
+        }else{
+            
+            self.paymentcancelview.isHidden = false
+        }
         
         cartypename.text = AppConstants.Ridenowcheckoutmodeldata.data?.vehicleTypeName
         
